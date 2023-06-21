@@ -17,8 +17,8 @@ class BaseRepository:
     def get_by_guid(self, guid: UNIQUEIDENTIFIER):
         return self.db.query(self.model).filter(self.model.GuId == guid).first()
 
-    def get_by_id(self, user_id: BigInteger):
-        return self.db.query(self.model).filter(self.model.Id == user_id).first()
+    def get_by_id(self, row_id: BigInteger):
+        return self.db.query(self.model).filter(self.model.Id == row_id).first()
 
     def insert_data(self, data):
         insert_data = data
@@ -36,4 +36,33 @@ class BaseRepository:
 
     def update_data(self, data):
         update_data = data
-        self.db.execute(Update(self.model), data)
+        self.db.execute(Update(self.model), update_data)
+        self.db.refresh(update_data)
+        return update_data
+
+    def delete_data(self, data):
+        delete_data = self.db.query(self.model).filter(self.model.Id == data.id).first()
+        delete_data.deleted = True
+        self.db.commit()
+        self.db.refresh(delete_data)
+        return delete_data
+
+    def delete_by_id(self, row_id: BigInteger):
+        delete_data = self.db.query(self.model).filter(self.model.Id == row_id).first()
+        delete_data.deleted = True
+        self.db.commit()
+        self.db.refresh(delete_data)
+        return delete_data
+
+    def delete_by_guid(self, guid: UNIQUEIDENTIFIER):
+        delete_data = self.db.query(self.model).filter(self.model.GuId == guid).first()
+        delete_data.deleted = True
+        self.db.commit()
+        self.db.refresh(delete_data)
+        return delete_data
+
+    def get_page_by_page(self, page_number, page_row_count):
+        return self.db.query(self.model).offset(page_number*page_row_count).limit(page_row_count).all()
+
+    def get_from_to(self, start_index, count):
+        return self.db.query(self.model).offset(start_index).limit(count).all()
