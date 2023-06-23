@@ -1,13 +1,16 @@
+import uvicorn
 from fastapi import FastAPI
+from Controllers.UserController import UserController
+from DbContext.DbContext import engine
+from DbContext.MigrationController import MigrationController
+
+MigrationController().start_migrate()
 
 app = FastAPI()
 
+user_controller = UserController()
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+app.include_router(user_controller.router)
 
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+if __name__ == '__main__':
+    uvicorn.run("main:app", port=5000, reload=True, access_log=False)

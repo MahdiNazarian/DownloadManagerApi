@@ -5,3 +5,6 @@ from Models import DbUser
 class UserRepository(BaseRepository.BaseRepository):
     def __init__(self):
         super().__init__(DbUser.DbUser)
+
+    def __call__(self, *args, **kwargs):
+        pass

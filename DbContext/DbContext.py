@@ -2,15 +2,16 @@ from sqlalchemy import create_engine, URL
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-#SQLALCHEMY_DATABASE_URL = "Server=LAPTOP-4L8IOKSN\\MSSQLSERVER2;Database=Download_Manager_DB;Trusted_Connection=True;MultipleActiveResultSets=True;"
+# SQLALCHEMY_DATABASE_URL = "Server=LAPTOP-4L8IOKSN\\MSSQLSERVER2;Database=Download_Manager_DB;Trusted_Connection=True;MultipleActiveResultSets=True;"
 SQLALCHEMY_DATABASE_URL = URL.create(
     "mssql+pyodbc",
-    host="LAPTOP-4L8IOKSN\\MSSQLSERVER2",
+    host="LAPTOP-4L8IOKSN\MSSQLSERVER2",
     database="Download_Manager_DB",
     query={
-        "driver": "ODBC Driver 18 for SQL Server",
+        "driver": "ODBC Driver 17 for SQL Server",
         "TrustServerCertificate": "yes",
         "authentication": "ActiveDirectoryIntegrated",
+        "use_setinputsizes": "False"
     },
 )
 # SQLALCHEMY_DATABASE_URL = "Server=;Database=;User ID=;Password=;Trusted_Connection=False;"

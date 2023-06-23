@@ -1,3 +1,5 @@
+import uuid
+
 from sqlalchemy.orm import Session
 from sqlalchemy import BigInteger, Update
 from fastapi import Depends
@@ -8,13 +10,13 @@ from sqlalchemy.dialects.mssql import UNIQUEIDENTIFIER
 
 class BaseRepository:
     def __init__(self, model):
-        self.db: Session = Depends(get_db())
+        self.db: Session = next(get_db())
         self.model = model
 
     def get_all(self):
         return self.db.query(self.model).all()
 
-    def get_by_guid(self, guid: UNIQUEIDENTIFIER):
+    def get_by_guid(self, guid: uuid.UUID):
         return self.db.query(self.model).filter(self.model.GuId == guid).first()
 
     def get_by_id(self, row_id: BigInteger):
@@ -54,7 +56,7 @@ class BaseRepository:
         self.db.refresh(delete_data)
         return delete_data
 
-    def delete_by_guid(self, guid: UNIQUEIDENTIFIER):
+    def delete_by_guid(self, guid: uuid.UUID):
         delete_data = self.db.query(self.model).filter(self.model.GuId == guid).first()
         delete_data.deleted = True
         self.db.commit()

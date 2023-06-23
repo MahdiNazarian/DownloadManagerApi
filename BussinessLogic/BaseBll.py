@@ -1,3 +1,5 @@
+import uuid
+
 from sqlalchemy.dialects.mssql import UNIQUEIDENTIFIER
 from sqlalchemy import BigInteger
 
@@ -9,7 +11,7 @@ class BaseBll:
     def get_all(self):
         return self.repository.get_all()
 
-    def get_by_guid(self, guid: UNIQUEIDENTIFIER):
+    def get_by_guid(self, guid: uuid.UUID):
         return self.repository.get_by_guid(guid=guid)
 
     def get_by_id(self, row_id: BigInteger):
@@ -30,7 +32,7 @@ class BaseBll:
     def delete_by_id(self, row_id: BigInteger):
         return self.repository.delete_by_id(row_id=row_id)
 
-    def delete_by_guid(self, guid: UNIQUEIDENTIFIER):
+    def delete_by_guid(self, guid: uuid.UUID):
         return self.repository.delete_by_guid(guid=guid)
 
     def get_page_by_page(self, page_number, page_row_count):
