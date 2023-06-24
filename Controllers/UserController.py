@@ -17,7 +17,7 @@ class UserController(BaseController):
             responses={404: {"description": "Not found"}},
         )
         self.db_model_instance = DbUser()
-        self.insert_model = ClientModels.UserModels.UserInsertAndUpdateModel
-        self.update_model = ClientModels.UserModels.UserInsertAndUpdateModel
-        self.delete_model = ClientModels.UserModels.UserInsertAndUpdateModel
+        self.insert_model = ClientModels.UserModels.UserInsertModel
+        self.update_model = ClientModels.UserModels.UserUpdateModel
+        self.delete_model = ClientModels.UserModels.UserUpdateModel
         super().__init__(self.bll, self.router, self.db_model_instance, self.insert_model, self.update_model, self.delete_model)

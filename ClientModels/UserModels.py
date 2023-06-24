@@ -3,10 +3,7 @@ import datetime
 from pydantic import BaseModel
 
 
-class UserInsertAndUpdateModel(BaseModel):
-    Id: int | None = None
-    GuId: str | None = None
-    Deleted: bool | None = None
+class UserInsertModel(BaseModel):
     Email: str
     FirstName: str
     LastName: str
@@ -14,4 +11,10 @@ class UserInsertAndUpdateModel(BaseModel):
     PhoneNumber: str
     IsPhoneNumberConfirmed: bool
     Password: str
+
+
+class UserUpdateModel(UserInsertModel):
+    Id: int | None = None
+    GuId: str | None = None
+    Deleted: bool | None = None
     LastLogin: datetime.datetime | None = None

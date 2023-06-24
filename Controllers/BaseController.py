@@ -52,7 +52,7 @@ class BaseController:
         @base_router.post("/add")
         def insert_data(data: insert_model):
             if data is not None:
-                db_insert_data = db_model_instance.custom_from_json(json.loads(json.dumps(data)))
+                db_insert_data = db_model_instance.from_json_insert(json.loads(data.json()))
                 insert_result = self.bll.insert_data(data=db_insert_data)
                 if insert_result is not None:
                     return ResponseModel(status_code=200, message="Row Inserted", data=insert_result)
@@ -64,7 +64,7 @@ class BaseController:
         @base_router.post("/add_all")
         def insert_range_data(data_list: list[insert_model]):
             if data_list is not None:
-                db_range_insert_data = [db_model_instance.custom_from_json(json.loads(json.dumps(d))) for d in data_list]
+                db_range_insert_data = [db_model_instance.from_json_insert(json.loads(d.json())) for d in data_list]
                 insert_result = self.bll.insert_range_data(data_list=db_range_insert_data)
                 if insert_result is not None:
                     return ResponseModel(status_code=200, message="Rows Inserted", data=insert_result)
@@ -76,8 +76,20 @@ class BaseController:
         @base_router.put("/update")
         def update_data(data: update_model):
             if data is not None:
-                db_update_data = db_model_instance.custom_from_json(json.loads(json.dumps(data)))
+                db_update_data = db_model_instance.from_json_update(json.loads(data.json()))
                 update_result = self.bll.update_data(data=db_update_data)
+                if update_result is not None:
+                    return ResponseModel(status_code=200, message="data Updated Successfully", data=update_result)
+                else:
+                    raise HTTPException(status_code=500, detail="Update Failed")
+            else:
+                raise HTTPException(status_code=400, detail="No data entered")
+
+        @base_router.put("/update_all")
+        def update_list_data(data_list: list[update_model]):
+            if data_list is not None:
+                db_update_data = [db_model_instance.from_json_update(json.loads(d.json())) for d in data_list]
+                update_result = self.bll.update_list_data(data_list=db_update_data)
                 if update_result is not None:
                     return ResponseModel(status_code=200, message="data Updated Successfully", data=update_result)
                 else:
@@ -88,7 +100,7 @@ class BaseController:
         @base_router.delete("/delete")
         def delete_data(data: delete_model):
             if data is not None:
-                db_delete_data = db_model_instance.custom_from_json(json.loads(json.dumps(data)))
+                db_delete_data = db_model_instance.from_json_update(json.loads(data.json()))
                 delete_result = self.bll.delete_data(data=db_delete_data)
                 if delete_result is not None:
                     return ResponseModel(status_code=200, message="data deleted Successfully", data=delete_result)

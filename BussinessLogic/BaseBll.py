@@ -26,6 +26,9 @@ class BaseBll:
     def update_data(self, data):
         return self.repository.update_data(data=data)
 
+    def update_list_data(self, data_list):
+        return self.repository.update_list_data(data_list=data_list)
+
     def delete_data(self, data):
         return self.repository.delete_data(data=data)
 

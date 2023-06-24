@@ -22,10 +22,10 @@ class DbUser(Base):
     LastLogin = Column(DATETIME2, nullable=False, default=datetime.datetime.now())
 
     @staticmethod
-    def custom_from_json(json_dct):
+    def from_json_update(json_dct):
         return DbUser(
-            Id=json_dct["Id"],
-            GuId=uuid.UUID(json_dct["GuId"]),
+            Id=json_dct["Id"] if json_dct["Id"] is not None else None if json_dct["Id"] != 0 else None,
+            GuId=uuid.UUID(json_dct["GuId"]) if json_dct["GuId"] is not None else None if json_dct["GuId"] != "" else None,
             Deleted=json_dct["Deleted"],
             Email=json_dct["Email"],
             FirstName=json_dct["FirstName"],
@@ -33,6 +33,18 @@ class DbUser(Base):
             IsEmailConfirmed=json_dct["IsEmailConfirmed"],
             PhoneNumber=json_dct["PhoneNumber"],
             IsPhoneNumberConfirmed=json_dct["IsPhoneNumberConfirmed"],
-            Password=hashlib.md5(json_dct["Password"]).hexdigest(),
+            Password=hashlib.md5(json_dct["Password"].encode('utf-8')).hexdigest(),
             LastLogin=json_dct["LastLogin"]
+        )
+
+    @staticmethod
+    def from_json_insert(json_dct):
+        return DbUser(
+            Email=json_dct["Email"],
+            FirstName=json_dct["FirstName"],
+            LastName=json_dct["LastName"],
+            IsEmailConfirmed=json_dct["IsEmailConfirmed"],
+            PhoneNumber=json_dct["PhoneNumber"],
+            IsPhoneNumberConfirmed=json_dct["IsPhoneNumberConfirmed"],
+            Password=hashlib.md5(json_dct["Password"].encode('utf-8')).hexdigest()
         )
