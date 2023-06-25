@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class SubscriptionTypesInsertModel(BaseModel):
     Name: str
     Price: int
+    SubscriptionActiveDays: int
 
 
 class SubscriptionTypesUpdateModel(SubscriptionTypesInsertModel):
