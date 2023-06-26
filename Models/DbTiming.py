@@ -23,6 +23,7 @@ class DbTiming(Base):
     DownloadSpeed = Column(BigInteger, default=0, nullable=False)
     CloseProgramAfterDownload = Column(Boolean, default=False, nullable=False)
     ShutDownSystemAfterDownloads = Column(Boolean, default=False, nullable=False)
+    CreatedOnUtc = Column(DATETIME2, default=datetime.datetime.now(), nullable=False)
     User = relationship("DbUser")
 
     @staticmethod
@@ -43,6 +44,7 @@ class DbTiming(Base):
             DownloadSpeed=json_dct["DownloadSpeed"],
             CloseProgramAfterDownload=json_dct["CloseProgramAfterDownload"],
             ShutDownSystemAfterDownloads=json_dct["ShutDownSystemAfterDownloads"],
+            CreatedOnUtc=json_dct["CreatedOnUtc"]
         )
 
     @staticmethod
@@ -60,4 +62,5 @@ class DbTiming(Base):
             DownloadSpeed=json_dct["DownloadSpeed"],
             CloseProgramAfterDownload=json_dct["CloseProgramAfterDownload"],
             ShutDownSystemAfterDownloads=json_dct["ShutDownSystemAfterDownloads"],
+            CreatedOnUtc=json_dct["CreatedOnUtc"]
         )

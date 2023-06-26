@@ -16,6 +16,7 @@ class TimingInsertModel(BaseModel):
     DownloadSpeed: int
     CloseProgramAfterDownload: bool
     ShutDownSystemAfterDownloads: bool
+    CreatedOnUtc: datetime.datetime
 
 
 class TimingUpdateModel(TimingInsertModel):
