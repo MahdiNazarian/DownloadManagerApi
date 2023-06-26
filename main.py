@@ -7,6 +7,7 @@ from Controllers.SubscriptionTypesController import SubscriptionTypesController
 from Controllers.UserSubscriptionController import UserSubscriptionController
 from Controllers.UserSettingSubjectsController import UserSettingSubjectsController
 from Controllers.UserSettingsController import UserSettingsController
+from Controllers.DownloadLineController import DownloadLineController
 from DbContext.DbContext import engine
 from DbContext.MigrationController import MigrationController
 
@@ -20,6 +21,7 @@ user_subscription_controller = UserSubscriptionController()
 user_setting_subjects_controller = UserSettingSubjectsController()
 user_settings_controller = UserSettingsController()
 timing_controller = TimingController()
+download_line_controller = DownloadLineController()
 
 app.include_router(user_controller.router)
 app.include_router(subscription_types_controller.router)
@@ -27,6 +29,7 @@ app.include_router(user_subscription_controller.router)
 app.include_router(user_setting_subjects_controller.router)
 app.include_router(user_settings_controller.router)
 app.include_router(timing_controller.router)
+app.include_router(download_line_controller.router)
 
 if __name__ == '__main__':
     uvicorn.run("main:app", port=5000, reload=True, access_log=False)
