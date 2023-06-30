@@ -10,3 +10,9 @@ class UserRegisterModel(BaseModel):
     PhonNumber: str
     Password: str
     Re_Password: str
+
+
+class UserLoginModel(BaseModel):
+    EmailOrPhoneNumber: str
+    Password: str
+    remember_me: bool

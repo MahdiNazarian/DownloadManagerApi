@@ -11,3 +11,5 @@ class UserBll(BaseBll):
         self.repository = UserRepository()
         super().__init__(repository=self.repository)
 
+    def get_user_by_email_phone_number(self, email_phone_number: str):
+        return self.repository.get_user_by_email_phone_number(email_phone_number)
