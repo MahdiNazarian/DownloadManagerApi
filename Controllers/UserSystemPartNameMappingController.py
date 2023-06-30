@@ -4,13 +4,14 @@ from BussinessLogic.UserSystemPartNameMappingBll import UserSystemPartNameMappin
 from fastapi import Depends, APIRouter
 
 from Models.DbUserSystemPartNameMapping import DbUserSystemPartNameMapping
+from Utils.StaticValues import API_PATH
 
 
 class UserSystemPartNameMappingController(BaseController):
     def __init__(self):
         self.bll = UserSystemPartNameMappingBll()
         self.router: APIRouter = APIRouter(
-            prefix="/user_system_part_name_mapping",
+            prefix=API_PATH+"/user_system_part_name_mapping",
             tags=["user_system_part_name_mapping"],
             responses={404: {"description": "Not found"}},
         )

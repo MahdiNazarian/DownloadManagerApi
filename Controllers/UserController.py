@@ -6,13 +6,14 @@ from BussinessLogic.UserBll import UserBll
 from fastapi import Depends, APIRouter
 
 from Models.DbUser import DbUser
+from Utils.StaticValues import API_PATH
 
 
 class UserController(BaseController):
     def __init__(self):
         self.bll = UserBll()
         self.router: APIRouter = APIRouter(
-            prefix="/user",
+            prefix=API_PATH+"/user",
             tags=["user"],
             responses={404: {"description": "Not found"}},
         )

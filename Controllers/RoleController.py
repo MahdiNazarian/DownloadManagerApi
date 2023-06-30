@@ -4,13 +4,14 @@ from BussinessLogic.RoleBll import RoleBll
 from fastapi import Depends, APIRouter
 
 from Models.DbRole import DbRole
+from Utils.StaticValues import API_PATH
 
 
 class RoleController(BaseController):
     def __init__(self):
         self.bll = RoleBll()
         self.router: APIRouter = APIRouter(
-            prefix="/role",
+            prefix=API_PATH+"/role",
             tags=["role"],
             responses={404: {"description": "Not found"}},
         )

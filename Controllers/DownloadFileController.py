@@ -4,13 +4,14 @@ from BussinessLogic.DownloadFileBll import DownloadFileBll
 from fastapi import Depends, APIRouter
 
 from Models.DbDownloadFile import DbDownloadFile
+from Utils.StaticValues import API_PATH
 
 
 class DownloadFileController(BaseController):
     def __init__(self):
         self.bll = DownloadFileBll()
         self.router: APIRouter = APIRouter(
-            prefix="/download_file",
+            prefix=API_PATH+"/download_file",
             tags=["download_file"],
             responses={404: {"description": "Not found"}},
         )

@@ -4,13 +4,14 @@ from BussinessLogic.SubscriptionTypesBll import SubscriptionTypesBll
 from fastapi import Depends, APIRouter
 
 from Models.DbSubscriptionTypes import DbSubscriptionTypes
+from Utils.StaticValues import API_PATH
 
 
 class SubscriptionTypesController(BaseController):
     def __init__(self):
         self.bll = SubscriptionTypesBll()
         self.router: APIRouter = APIRouter(
-            prefix="/subscription_types",
+            prefix=API_PATH+"/subscription_types",
             tags=["subscription_types"],
             responses={404: {"description": "Not found"}},
         )

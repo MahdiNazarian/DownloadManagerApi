@@ -4,13 +4,14 @@ from BussinessLogic.UserRoleMappingBll import UserRoleMappingBll
 from fastapi import Depends, APIRouter
 
 from Models.DbUserRoleMapping import DbUserRoleMapping
+from Utils.StaticValues import API_PATH
 
 
 class UserRoleMappingController(BaseController):
     def __init__(self):
         self.bll = UserRoleMappingBll()
         self.router: APIRouter = APIRouter(
-            prefix="/user_role_mapping",
+            prefix=API_PATH+"/user_role_mapping",
             tags=["user_role_mapping"],
             responses={404: {"description": "Not found"}},
         )

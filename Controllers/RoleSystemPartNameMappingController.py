@@ -4,13 +4,14 @@ from BussinessLogic.RoleSystemPartNameMappingBll import RoleSystemPartNameMappin
 from fastapi import Depends, APIRouter
 
 from Models.DbRoleSystemPartNameMapping import DbRoleSystemPartNameMapping
+from Utils.StaticValues import API_PATH
 
 
 class RoleSystemPartNameMappingController(BaseController):
     def __init__(self):
         self.bll = RoleSystemPartNameMappingBll()
         self.router: APIRouter = APIRouter(
-            prefix="/role_system_part_name_mapping",
+            prefix=API_PATH+"/role_system_part_name_mapping",
             tags=["role_system_part_name_mapping"],
             responses={404: {"description": "Not found"}},
         )

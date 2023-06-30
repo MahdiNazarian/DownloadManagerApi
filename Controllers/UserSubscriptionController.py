@@ -4,13 +4,14 @@ from BussinessLogic.UserSubscriptionBll import UserSubscriptionBll
 from fastapi import Depends, APIRouter
 
 from Models.DbUserSubscription import DbUserSubscriptions
+from Utils.StaticValues import API_PATH
 
 
 class UserSubscriptionController(BaseController):
     def __init__(self):
         self.bll = UserSubscriptionBll()
         self.router: APIRouter = APIRouter(
-            prefix="/user_subscription",
+            prefix=API_PATH+"/user_subscription",
             tags=["user_subscription"],
             responses={404: {"description": "Not found"}},
         )

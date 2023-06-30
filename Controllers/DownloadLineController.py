@@ -4,13 +4,14 @@ from BussinessLogic.DownloadLineBll import DownloadLineBll
 from fastapi import Depends, APIRouter
 
 from Models.DbDownloadLine import DbDownloadLine
+from Utils.StaticValues import API_PATH
 
 
 class DownloadLineController(BaseController):
     def __init__(self):
         self.bll = DownloadLineBll()
         self.router: APIRouter = APIRouter(
-            prefix="/download_line",
+            prefix=API_PATH+"/download_line",
             tags=["download_line"],
             responses={404: {"description": "Not found"}},
         )

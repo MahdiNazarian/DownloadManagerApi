@@ -4,13 +4,14 @@ from BussinessLogic.SettingsBll import SettingsBll
 from fastapi import Depends, APIRouter
 
 from Models.DbSettings import DbSettings
+from Utils.StaticValues import API_PATH
 
 
 class SettingsController(BaseController):
     def __init__(self):
         self.bll = SettingsBll()
         self.router: APIRouter = APIRouter(
-            prefix="/settings",
+            prefix=API_PATH+"/settings",
             tags=["settings"],
             responses={404: {"description": "Not found"}},
         )

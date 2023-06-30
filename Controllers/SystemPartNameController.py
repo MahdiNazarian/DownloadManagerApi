@@ -4,13 +4,14 @@ from BussinessLogic.SystemPartNameBll import SystemPartNameBll
 from fastapi import Depends, APIRouter
 
 from Models.DbSystemPartName import DbSystemPartName
+from Utils.StaticValues import API_PATH
 
 
 class SystemPartNameController(BaseController):
     def __init__(self):
         self.bll = SystemPartNameBll()
         self.router: APIRouter = APIRouter(
-            prefix="/system_part_name",
+            prefix=API_PATH+"/system_part_name",
             tags=["system_part_name"],
             responses={404: {"description": "Not found"}},
         )

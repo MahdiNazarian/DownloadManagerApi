@@ -3,13 +3,14 @@ from fastapi import APIRouter, HTTPException
 from BussinessLogic.AuthenticateBll import AuthenticateBll
 from ClientModels import UserAuthenticateModels
 from ClientModels.ResponseModel import ResponseModel
+from Utils.StaticValues import API_PATH
 
 
 class AuthenticateController:
     def __init__(self):
         self.bll = AuthenticateBll()
         self.router: APIRouter = APIRouter(
-            prefix="/authenticate",
+            prefix=API_PATH+"/authenticate",
             tags=["authenticate"],
             responses={404: {"description": "Not found"}},
         )

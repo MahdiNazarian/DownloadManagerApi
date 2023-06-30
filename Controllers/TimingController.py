@@ -4,13 +4,14 @@ from BussinessLogic.TimingBll import TimingBll
 from fastapi import Depends, APIRouter
 
 from Models.DbTiming import DbTiming
+from Utils.StaticValues import API_PATH
 
 
 class TimingController(BaseController):
     def __init__(self):
         self.bll = TimingBll()
         self.router: APIRouter = APIRouter(
-            prefix="/timing",
+            prefix=API_PATH+"/timing",
             tags=["timing"],
             responses={404: {"description": "Not found"}},
         )

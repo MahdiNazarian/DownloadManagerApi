@@ -4,13 +4,14 @@ from BussinessLogic.UserSettingSubjectsBll import UserSettingSubjectBll
 from fastapi import Depends, APIRouter
 
 from Models.DbUserSettingSubjects import DbUserSettingSubjects
+from Utils.StaticValues import API_PATH
 
 
 class UserSettingSubjectsController(BaseController):
     def __init__(self):
         self.bll = UserSettingSubjectBll()
         self.router: APIRouter = APIRouter(
-            prefix="/user_setting_subjects",
+            prefix=API_PATH+"/user_setting_subjects",
             tags=["user_setting_subjects"],
             responses={404: {"description": "Not found"}},
         )

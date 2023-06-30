@@ -4,13 +4,14 @@ from BussinessLogic.UserDownloadMappingBll import UserDownloadMappingBll
 from fastapi import Depends, APIRouter
 
 from Models.DbUserDownloadMapping import DbUserDownloadMapping
+from Utils.StaticValues import API_PATH
 
 
 class UserDownloadMappingController(BaseController):
     def __init__(self):
         self.bll = UserDownloadMappingBll()
         self.router: APIRouter = APIRouter(
-            prefix="/user_download_mapping",
+            prefix=API_PATH+"/user_download_mapping",
             tags=["user_download_mapping"],
             responses={404: {"description": "Not found"}},
         )
