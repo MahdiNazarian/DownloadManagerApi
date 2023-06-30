@@ -1,1 +1,1 @@
-API_PATH = "/api/V1/"
+API_PATH = "/api"

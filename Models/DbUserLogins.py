@@ -30,6 +30,7 @@ class DbUserLogins(Base):
     @staticmethod
     def from_json_insert(json_dct):
         return DbUserLogins(
+            UserId=json_dct["UserId"],
             LoginAttemptTime=json_dct["LoginAttemptTime"],
             LoginResult=json_dct["LoginResult"]
         )

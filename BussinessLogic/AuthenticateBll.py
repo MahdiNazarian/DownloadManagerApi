@@ -3,11 +3,13 @@ import hashlib
 
 from BussinessLogic.RoleBll import RoleBll
 from BussinessLogic.UserBll import UserBll
+from BussinessLogic.UserLoginsBll import UserLoginsBll
 from BussinessLogic.UserRoleMappingBll import UserRoleMappingBll
 from BussinessLogic.UserSessionsBll import UserSessionsBll
 import ClientModels.UserAuthenticateModels
 from Models.DbRole import DbRole
 from Models.DbUser import DbUser
+from Models.DbUserLogins import DbUserLogins
 from Models.DbUserRoleMapping import DbUserRoleMapping
 from Models.DbUserSessions import DbUserSessions
 
@@ -18,6 +20,7 @@ class AuthenticateBll:
         self.role_bll = RoleBll()
         self.user_role_mapping_bll = UserRoleMappingBll()
         self.user_sessions_bll = UserSessionsBll()
+        self.user_logins_bll = UserLoginsBll()
 
     def user_register(self, register_data: ClientModels.UserAuthenticateModels.UserRegisterModel):
         user_insert_data = DbUser(
@@ -41,6 +44,9 @@ class AuthenticateBll:
     def user_login(self, login_data: ClientModels.UserAuthenticateModels.UserLoginModel):
         user_data: DbUser = self.user_bll.get_user_by_email_phone_number(login_data.EmailOrPhoneNumber)
         if user_data is not None:
+            user_insert_login = DbUserLogins(
+                UserId=user_data.Id
+            )
             if user_data.Password == (hashlib.md5(login_data.Password.encode('utf-8')).hexdigest()):
                 user_insert_session = DbUserSessions(
                     UserId=user_data.Id,
@@ -53,8 +59,12 @@ class AuthenticateBll:
                     ExpireDate=datetime.datetime.now() + datetime.timedelta(days=10) if login_data.remember_me else datetime.datetime.now() + datetime.timedelta(hours=24)
                 )
                 inserted_session = self.user_sessions_bll.insert_data(user_insert_session)
+                user_insert_login.LoginResult = True
+                self.user_logins_bll.insert_data(user_insert_login)
                 return inserted_session
             else:
+                user_insert_login.LoginResult = False
+                self.user_logins_bll.insert_data(user_insert_login)
                 return None
         else:
             return None

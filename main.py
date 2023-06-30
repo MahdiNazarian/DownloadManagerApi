@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
+from starlette.middleware.base import BaseHTTPMiddleware
 
 from Controllers.AuthenticateController import AuthenticateController
 from Controllers.TimingController import TimingController
@@ -17,6 +18,7 @@ from Controllers.RoleSystemPartNameMappingController import RoleSystemPartNameMa
 from Controllers.UserSystemPartNameMappingController import UserSystemPartNameMappingController
 from Controllers.SettingsController import SettingsController
 from Controllers.UserRoleMappingController import UserRoleMappingController
+from Middlewares.AuthenticationMiddleware import AuthenticationMiddleware
 from DbContext.DbContext import engine
 from DbContext.MigrationController import MigrationController
 
@@ -40,7 +42,9 @@ user_system_part_name_mapping_controller = UserSystemPartNameMappingController()
 settings_controller = SettingsController()
 user_role_mapping_controller = UserRoleMappingController()
 authenticate_controller = AuthenticateController()
+authentication_middleware = AuthenticationMiddleware()
 
+app.add_middleware(BaseHTTPMiddleware, dispatch=authentication_middleware)
 app.include_router(user_controller.router)
 app.include_router(subscription_types_controller.router)
 app.include_router(user_subscription_controller.router)

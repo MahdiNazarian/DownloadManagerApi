@@ -7,3 +7,5 @@ class UserSubscriptionBll(BaseBll):
         self.repository = UserSubscriptionRepository()
         super().__init__(repository=self.repository)
 
+    def get_user_active_subs_by_user_id(self, user_id: int):
+        return self.repository.get_user_active_subs_by_user_id(user_id)
