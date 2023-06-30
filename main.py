@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 
+from Controllers.AuthenticateController import AuthenticateController
 from Controllers.TimingController import TimingController
 from Controllers.UserController import UserController
 from Controllers.SubscriptionTypesController import SubscriptionTypesController
@@ -15,6 +16,7 @@ from Controllers.SystemPartNameController import SystemPartNameController
 from Controllers.RoleSystemPartNameMappingController import RoleSystemPartNameMappingController
 from Controllers.UserSystemPartNameMappingController import UserSystemPartNameMappingController
 from Controllers.SettingsController import SettingsController
+from Controllers.UserRoleMappingController import UserRoleMappingController
 from DbContext.DbContext import engine
 from DbContext.MigrationController import MigrationController
 
@@ -36,6 +38,8 @@ system_part_name_controller = SystemPartNameController()
 role_system_part_name_mapping_controller = RoleSystemPartNameMappingController()
 user_system_part_name_mapping_controller = UserSystemPartNameMappingController()
 settings_controller = SettingsController()
+user_role_mapping_controller = UserRoleMappingController()
+authenticate_controller = AuthenticateController()
 
 app.include_router(user_controller.router)
 app.include_router(subscription_types_controller.router)
@@ -51,6 +55,8 @@ app.include_router(system_part_name_controller.router)
 app.include_router(role_system_part_name_mapping_controller.router)
 app.include_router(user_system_part_name_mapping_controller.router)
 app.include_router(settings_controller.router)
+app.include_router(user_role_mapping_controller.router)
+app.include_router(authenticate_controller.router)
 
 if __name__ == '__main__':
     uvicorn.run("main:app", port=5000, reload=True, access_log=False)
