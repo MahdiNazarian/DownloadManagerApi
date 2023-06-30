@@ -11,6 +11,7 @@ from Controllers.DownloadLineController import DownloadLineController
 from Controllers.DownloadFileController import DownloadFileController
 from Controllers.UserDownloadMappingController import UserDownloadMappingController
 from Controllers.RoleController import RoleController
+from Controllers.SystemPartNameController import SystemPartNameController
 from DbContext.DbContext import engine
 from DbContext.MigrationController import MigrationController
 
@@ -28,6 +29,7 @@ download_line_controller = DownloadLineController()
 download_file_controller = DownloadFileController()
 user_download_mapping_controller = UserDownloadMappingController()
 role_controller = RoleController()
+system_part_name_controller = SystemPartNameController()
 
 app.include_router(user_controller.router)
 app.include_router(subscription_types_controller.router)
@@ -39,6 +41,7 @@ app.include_router(download_line_controller.router)
 app.include_router(download_file_controller.router)
 app.include_router(user_download_mapping_controller.router)
 app.include_router(role_controller.router)
+app.include_router(system_part_name_controller.router)
 
 if __name__ == '__main__':
     uvicorn.run("main:app", port=5000, reload=True, access_log=False)
